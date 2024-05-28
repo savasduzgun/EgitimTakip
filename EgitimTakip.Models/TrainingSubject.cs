@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace EgitimTakip.Models
 {
-    public class TrainingSubjects : BaseModel
+    public class TrainingSubject : BaseModel
     {
         public string Name { get; set; }
         public int Code { get; set; }
