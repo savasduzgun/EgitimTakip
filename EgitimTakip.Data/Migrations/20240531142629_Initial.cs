@@ -134,6 +134,31 @@ namespace EgitimTakip.Data.Migrations
                         onDelete: ReferentialAction.NoAction);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TrainingsSubjectsMap",
+                columns: table => new
+                {
+                    TrainingId = table.Column<int>(type: "int", nullable: false),
+                    TrainingSubjectId = table.Column<int>(type: "int", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingsSubjectsMap", x => new { x.TrainingId, x.TrainingSubjectId });
+                    table.ForeignKey(
+                        name: "FK_TrainingsSubjectsMap_TrainingSubjects_TrainingSubjectId",
+                        column: x => x.TrainingSubjectId,
+                        principalTable: "TrainingSubjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrainingsSubjectsMap_Trainings_TrainingId",
+                        column: x => x.TrainingId,
+                        principalTable: "Trainings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_AppUserId",
                 table: "Companies",
@@ -153,6 +178,11 @@ namespace EgitimTakip.Data.Migrations
                 name: "IX_Trainings_CompanyId",
                 table: "Trainings",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingsSubjectsMap_TrainingSubjectId",
+                table: "TrainingsSubjectsMap",
+                column: "TrainingSubjectId");
         }
 
         /// <inheritdoc />
@@ -162,10 +192,13 @@ namespace EgitimTakip.Data.Migrations
                 name: "EmployeeTraining");
 
             migrationBuilder.DropTable(
-                name: "TrainingSubjects");
+                name: "TrainingsSubjectsMap");
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "TrainingSubjects");
 
             migrationBuilder.DropTable(
                 name: "Trainings");

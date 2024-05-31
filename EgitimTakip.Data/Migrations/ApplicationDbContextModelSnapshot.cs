@@ -162,6 +162,24 @@ namespace EgitimTakip.Data.Migrations
                     b.ToTable("TrainingSubjects");
                 });
 
+            modelBuilder.Entity("EgitimTakip.Models.TrainingsSubjectsMap", b =>
+                {
+                    b.Property<int>("TrainingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainingSubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrainingId", "TrainingSubjectId");
+
+                    b.HasIndex("TrainingSubjectId");
+
+                    b.ToTable("TrainingsSubjectsMap");
+                });
+
             modelBuilder.Entity("EmployeeTraining", b =>
                 {
                     b.Property<int>("EmployeesId")
@@ -210,6 +228,25 @@ namespace EgitimTakip.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("EgitimTakip.Models.TrainingsSubjectsMap", b =>
+                {
+                    b.HasOne("EgitimTakip.Models.Training", "Training")
+                        .WithMany("TrainingsSubjectsMap")
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EgitimTakip.Models.TrainingSubject", "TrainingSubject")
+                        .WithMany("TrainingsSubjectsMap")
+                        .HasForeignKey("TrainingSubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Training");
+
+                    b.Navigation("TrainingSubject");
+                });
+
             modelBuilder.Entity("EmployeeTraining", b =>
                 {
                     b.HasOne("EgitimTakip.Models.Employee", null)
@@ -233,6 +270,16 @@ namespace EgitimTakip.Data.Migrations
             modelBuilder.Entity("EgitimTakip.Models.Company", b =>
                 {
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("EgitimTakip.Models.Training", b =>
+                {
+                    b.Navigation("TrainingsSubjectsMap");
+                });
+
+            modelBuilder.Entity("EgitimTakip.Models.TrainingSubject", b =>
+                {
+                    b.Navigation("TrainingsSubjectsMap");
                 });
 #pragma warning restore 612, 618
         }
