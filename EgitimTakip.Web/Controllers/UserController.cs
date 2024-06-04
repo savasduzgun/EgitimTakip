@@ -1,5 +1,7 @@
 ﻿using EgitimTakip.Data;
 using EgitimTakip.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -33,8 +35,19 @@ namespace EgitimTakip.Web.Controllers
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, appUser.Id.ToString()));
                 claims.Add(new Claim(ClaimTypes.GivenName, appUser.UserName));
                 claims.Add(new Claim(ClaimTypes.Role, appUser.IsAdmin ? "Admin" : "User"));
+
+                ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
+
+                return RedirectToAction("Index", "Home");
             }
-            return Ok();
+            else
+            {
+                return View(); //Tekrar login sayfasına atmış olacak
+            }
         }
     }
 }
