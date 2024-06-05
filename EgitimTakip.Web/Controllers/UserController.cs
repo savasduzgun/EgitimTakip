@@ -49,5 +49,13 @@ namespace EgitimTakip.Web.Controllers
                 return View(); //Tekrar login sayfasına atmış olacak
             }
         }
+
+        [HttpPost]
+        public IActionResult Add(AppUser user) 
+        { 
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return Ok(user);
+        }
     }
 }
