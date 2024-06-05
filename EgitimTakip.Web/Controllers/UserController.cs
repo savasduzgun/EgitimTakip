@@ -65,5 +65,17 @@ namespace EgitimTakip.Web.Controllers
             _context.SaveChanges();
             return Ok(user);
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            //SOFT DELETE
+            AppUser user = _context.Users.Find(id);
+            user.IsDeleted = true;
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return Ok();
+
+        }
     }
 }
