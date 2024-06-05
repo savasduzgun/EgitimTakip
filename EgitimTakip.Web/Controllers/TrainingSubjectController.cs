@@ -1,4 +1,5 @@
 ﻿using EgitimTakip.Data;
+using EgitimTakip.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EgitimTakip.Web.Controllers
@@ -19,7 +20,15 @@ namespace EgitimTakip.Web.Controllers
         public IActionResult GetAll()
         {
             var result = _context.TrainingSubjects.ToList();
-            return Json(new { data = result }); //datatable da kullanabilmek için
+            return Json(new { data = result }); //datatable da kullanabilmek için buradan yapmak daha pratik
+        }
+
+        [HttpPost]
+        public IActionResult Add(TrainingSubject trainingSubject)
+        {
+            _context.TrainingSubjects.Add(trainingSubject);
+            _context.SaveChanges();
+            return Ok(trainingSubject);
         }
     }
 }
