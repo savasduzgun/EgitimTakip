@@ -77,5 +77,11 @@ namespace EgitimTakip.Web.Controllers
             return Ok();
 
         }
+        public IActionResult GetAll()
+        {
+            var result = _context.Users.Where(u => u.IsDeleted == false).ToList();
+            return Json(new { data = result }); //datatable daha iyi anlasın diye
+        }
+
     }
 }
