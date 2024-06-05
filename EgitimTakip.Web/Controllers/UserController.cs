@@ -51,9 +51,17 @@ namespace EgitimTakip.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AppUser user) 
-        { 
+        public IActionResult Add(AppUser user)
+        {
             _context.Users.Add(user);
+            _context.SaveChanges();
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult Update(AppUser user)
+        {
+            _context.Users.Update(user);
             _context.SaveChanges();
             return Ok(user);
         }
