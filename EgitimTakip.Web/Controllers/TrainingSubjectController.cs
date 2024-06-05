@@ -30,5 +30,16 @@ namespace EgitimTakip.Web.Controllers
             _context.SaveChanges();
             return Ok(trainingSubject);
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            //SOFT DELETE 
+            TrainingSubject trainingSubject = _context.TrainingSubjects.Find(id);
+            trainingSubject.IsDeleted = true;
+            _context.TrainingSubjects.Update(trainingSubject);
+            _context.SaveChanges();
+            return Ok(trainingSubject); //nesneyi göndermek önemli değil
+        }
     }
 }
