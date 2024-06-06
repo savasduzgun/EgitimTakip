@@ -1,4 +1,5 @@
 ﻿using EgitimTakip.Data;
+using EgitimTakip.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EgitimTakip.Web.Controllers
@@ -21,6 +22,15 @@ namespace EgitimTakip.Web.Controllers
         {
             var result = _context.Employees.Where(e => e.CompanyId == companyId && !e.IsDeleted).ToList();
             return Json(new { data = result });
+        }
+
+        [HttpPost]
+        public IActionResult Add(Employee employee)
+        {
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
+            return Ok(employee);
+
         }
     }
 }
