@@ -39,5 +39,16 @@ namespace EgitimTakip.Web.Controllers
             _context.SaveChanges();
             return Ok(employee);
         }
+
+        [HttpPost] //HttpGet ile de çalışabilir
+        public IActionResult Delete(int id)
+        {
+            //SOFT DELETE   
+            Employee employee = _context.Employees.Find(id);
+            employee.IsDeleted = true;
+            _context.Employees.Update(employee);
+            _context.SaveChanges();
+            return Ok(employee);
+        }
     }
 }
