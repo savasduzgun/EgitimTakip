@@ -24,9 +24,32 @@ namespace EgitimTakip.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Training training) 
+        public IActionResult Add(Training training, List<TrainingsSubjectsMap> trainingsSubjectsMaps)
         {
             _context.Trainings.Add(training);
+            _context.SaveChanges();
+            foreach (var item in trainingsSubjectsMaps)
+            {
+                _context.TrainingsSubjectsMaps.Add(item);
+            }
+            _context.SaveChanges();
+            return Ok(training);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Training training)
+        {
+            _context.Trainings.Update(training);
+            _context.SaveChanges();
+            return Ok(training);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            Training training = _context.Trainings.Find(id);
+            training.IsDeleted = true;
+            _context.Trainings.Update(training);
             _context.SaveChanges();
             return Ok(training);
         }
