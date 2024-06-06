@@ -50,5 +50,15 @@ namespace EgitimTakip.Web.Controllers
             _context.SaveChanges();
             return Ok(employee);
         }
+
+        [HttpPost]
+        public IActionResult HardDelete(int id)
+        {
+            Employee employee = _context.Employees.Find(id);
+            _context.Employees.Remove(employee);
+            _context.SaveChanges();
+            return Ok(employee);
+        }
+
     }
 }
