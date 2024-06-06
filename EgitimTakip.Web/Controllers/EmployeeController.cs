@@ -30,7 +30,14 @@ namespace EgitimTakip.Web.Controllers
             _context.Employees.Add(employee);
             _context.SaveChanges();
             return Ok(employee);
+        }
 
+        [HttpPost]
+        public IActionResult Update(Employee employee)
+        {
+            _context.Employees.Update(employee);
+            _context.SaveChanges();
+            return Ok(employee);
         }
     }
 }
