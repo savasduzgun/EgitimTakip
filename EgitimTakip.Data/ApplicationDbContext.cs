@@ -24,12 +24,16 @@ namespace EgitimTakip.Data
         public virtual DbSet<Training> Trainings { get; set; }
         public virtual DbSet<TrainingSubject> TrainingSubjects { get; set; }
         public virtual DbSet<TrainingsSubjectsMap> TrainingsSubjectsMaps { get; set; }
+        public virtual DbSet<TrainingCategory> TrainingCategories { get; set; }
 
         //FLUENT API
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TrainingsSubjectsMap>().HasKey(x => new {
-            x.TrainingId, x.TrainingSubjectId});
+            modelBuilder.Entity<TrainingsSubjectsMap>().HasKey(x => new
+            {
+                x.TrainingId,
+                x.TrainingSubjectId
+            });
         }
     }
 }
