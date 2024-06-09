@@ -16,5 +16,10 @@ namespace EgitimTakip.Web.Controllers
         {
             return View();
         }
+        public IActionResult GetAll()
+        {
+            return Json(new { data = _context.TrainingCategories.Where(tc => !tc.IsDeleted).ToList() });
+        }
+
     }
 }
