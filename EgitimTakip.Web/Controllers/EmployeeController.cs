@@ -17,7 +17,7 @@ namespace EgitimTakip.Web.Controllers
         {
             return View();
         }
-
+        [HttpPost]
         public IActionResult GetAll(int companyId)
         {
             var result = _context.Employees.Where(e => e.CompanyId == companyId && !e.IsDeleted).ToList();
