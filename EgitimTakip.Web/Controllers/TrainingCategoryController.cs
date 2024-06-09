@@ -39,5 +39,15 @@ namespace EgitimTakip.Web.Controllers
                 //500 - Internal Server Error
             }
         }
+        [HttpPost]
+        public IActionResult Delete(int id) 
+        { 
+            //var traininCategory = _context.TrainingCategories.Find(id);
+            var traininCategory = _context.TrainingCategories.FirstOrDefault(tc => tc.Id == id);
+            traininCategory.IsDeleted = true;
+            _context.TrainingCategories.Update(traininCategory);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
