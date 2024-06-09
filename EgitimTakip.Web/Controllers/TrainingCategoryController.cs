@@ -1,4 +1,5 @@
 ﻿using EgitimTakip.Data;
+using EgitimTakip.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EgitimTakip.Web.Controllers
@@ -20,6 +21,23 @@ namespace EgitimTakip.Web.Controllers
         {
             return Json(new { data = _context.TrainingCategories.Where(tc => !tc.IsDeleted).ToList() });
         }
+        [HttpPost]
+        public IActionResult Add(TrainingCategory trainingCategory)
+        {
+            try
+            {
+                _context.TrainingCategories.Add(trainingCategory);
+                _context.SaveChanges();
+                return Ok(trainingCategory);
+                //return StatusCode(200, trainingCategory);
+            }
+            catch (Exception ex)
+            {
 
+                return BadRequest(ex);
+                //return StatusCode(400, ex.Message);
+                //500 - Internal Server Error
+            }
+        }
     }
 }
