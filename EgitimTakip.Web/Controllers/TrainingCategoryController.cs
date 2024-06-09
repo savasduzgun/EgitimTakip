@@ -40,7 +40,7 @@ namespace EgitimTakip.Web.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Delete(int id) 
+        public IActionResult Delete(int id)
         { 
             //var traininCategory = _context.TrainingCategories.Find(id);
             var traininCategory = _context.TrainingCategories.FirstOrDefault(tc => tc.Id == id);
@@ -48,6 +48,13 @@ namespace EgitimTakip.Web.Controllers
             _context.TrainingCategories.Update(traininCategory);
             _context.SaveChanges();
             return Ok();
+        }
+        [HttpPost]
+        public IActionResult Update(TrainingCategory trainingCategory) 
+        {
+            _context.TrainingCategories.Update(trainingCategory);
+            _context.SaveChanges();
+            return Ok(trainingCategory);
         }
     }
 }
