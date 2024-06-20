@@ -71,6 +71,11 @@
 
 @section Scripts {
     <script>
+
+        $('#modal').on('shown.bs.modal', () => {
+            $('#txtCategoryName').focus();
+        });
+
         var DataTable = "";
         $(document).ready(() => {
 
@@ -106,8 +111,8 @@
                     {
                         data: 'id', title: 'İşlemler', render: (data) => {
 
-                            return `<a class="me-4" title="Sil" href="#"><box-icon name="trash-alt" color="red" size="sm" class="bx-burst-hover"></box-icon></a>
-                                            <a title="Düzenle" href="#"><box-icon name="pencil" color="blue" size="sm" class="bx-burst-hover"></box-icon></a>`;
+                            return `<a onclick="deleteCategory(${data},this)" class="me-4" title="Sil" href="#"><box-icon name="trash-alt" color="red" size="sm" class="bx-burst-hover"></box-icon></a>
+                                    <a title="Düzenle" href="#"><box-icon name="pencil" color="blue" size="sm" class="bx-burst-hover"></box-icon></a>`;
                         }
                     }
                 ]
@@ -115,5 +120,24 @@
 
 
         });
+
+        function deleteCategory(categoryId,button) {
+
+            if (confirm("Silmek istedğinize emin misiniz ?")) {
+
+                $.ajax({
+                    url: '/TrainingCategory/Delete',
+                    type: 'POST',
+                    data: {
+                        id: categoryId
+                    },
+                    success: () => {
+                        let satir = $(button).parent().parent();
+                        satir.remove();
+                        DataTable.row(satir).remove();
+                    }
+                });
+            }
+        } 
     </script>
 }
