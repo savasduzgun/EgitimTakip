@@ -73,7 +73,10 @@
     <script>
 
         $('#modal').on('shown.bs.modal', () => {
-            $('#txtCategoryName').focus();
+            $('#txtCategoryName').focus().off("keypress").keypress((event) => {
+                if (event.key == "Enter")
+                    $("#btnSave").trigger("click");
+            });
         });
 
         var DataTable = "";
@@ -96,7 +99,7 @@
                         },
                         success: (res) => {
                             $("#modal").modal("hide");
-                            DataTable.row.add(res).draw();
+                            DataTable.row.add(res).draw(false);
                         }
                     });
                 });
@@ -133,8 +136,8 @@
                     },
                     success: () => {
                         let satir = $(button).parent().parent();
-                        satir.remove();
-                        DataTable.row(satir).remove();
+                        
+                        DataTable.row(satir).remove().draw(false);
                     }
                 });
             }
