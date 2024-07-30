@@ -18,7 +18,7 @@ namespace EgitimTakip.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult GetAll(int companyId)
+        public IActionResult GetAll(int companyId) //companyId ye göre bütün employees çeken metod
         {
             var result = _context.Employees.Where(e => e.CompanyId == companyId && !e.IsDeleted).ToList();
             return Json(new { data = result });

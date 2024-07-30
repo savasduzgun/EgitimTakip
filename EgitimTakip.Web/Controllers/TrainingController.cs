@@ -19,8 +19,9 @@ namespace EgitimTakip.Web.Controllers
         }
         public IActionResult GetAll(int companyId)
         {
-            var result = _context.Trainings.Where(t => t.CompanyId == companyId && !t.IsDeleted).ToList();
-            return Json(new { data = result });
+            //var result = _context.Trainings.Where(t => t.CompanyId == companyId && !t.IsDeleted).ToList();
+            //return Json(new { data = result });
+            return Json(new { data = _context.Trainings.Where(t => t.CompanyId == companyId && !t.IsDeleted)});
         }
 
         [HttpPost]

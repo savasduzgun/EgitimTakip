@@ -60,7 +60,7 @@ namespace EgitimTakip.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SoftDelete(int id) 
+        public IActionResult SoftDelete(int id) //burada company nesnesi gönderirsek ön yüzden bütün prop ları ile gelmesi gerekir ve burada update yaptığımız için boş gelen değerleri biz boşaltmışız gibi database gönderir prop değerleri uçmuş olur ama bize sadece IsDeleted lazım böyle sadece id istersek frondend çi müteşekkir olur
         {
             //SOFT DELETE
             var company = _context.Companies.Find(id);
