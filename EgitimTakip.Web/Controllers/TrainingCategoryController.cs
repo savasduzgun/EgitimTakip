@@ -34,7 +34,7 @@ namespace EgitimTakip.Web.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(ex);
+                return BadRequest(ex); //hata gönderileceği zaman ok ile gönderilmez
                 //return StatusCode(400, ex.Message);
                 //500 - Internal Server Error
             }
