@@ -25,9 +25,19 @@ namespace EgitimTakip.Repository.Shared.Concrete
         public T Add(T entity)
         {
             //_context.Set<T>().Add(entity);
-            _dbSet.Add(entity);
-            Save();
-            return entity;
+            try
+            {
+                _dbSet.Add(entity);
+                Save();
+                return entity;
+            }
+            catch (Exception)
+            {
+
+                return entity;
+
+            }
+
         }
 
         public List<T> AddRange(List<T> entities)
@@ -39,8 +49,8 @@ namespace EgitimTakip.Repository.Shared.Concrete
         //soft delete
         public void Delete(int id)
         {
-          T entity = _dbSet.Find(id);
-            entity.IsDeleted= true;
+            T entity = _dbSet.Find(id);
+            entity.IsDeleted = true;
             _dbSet.Update(entity);
             Save();
         }

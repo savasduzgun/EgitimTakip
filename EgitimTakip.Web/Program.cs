@@ -1,4 +1,6 @@
 using EgitimTakip.Data;
+using EgitimTakip.Repository.Abstract;
+using EgitimTakip.Repository.Concrete;
 using EgitimTakip.Repository.Shared.Abstract;
 using EgitimTakip.Repository.Shared.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => 
 { 
