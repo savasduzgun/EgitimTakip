@@ -1,4 +1,7 @@
-﻿using EgitimTakip.Repository.Shared.Abstract;
+﻿using EgitimTakip.Data;
+using EgitimTakip.Models;
+using EgitimTakip.Repository.Shared.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,46 +11,65 @@ using System.Threading.Tasks;
 
 namespace EgitimTakip.Repository.Shared.Concrete
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : BaseModel
     {
+        private readonly ApplicationDbContext _context;
+        private readonly DbSet<T> _dbSet;
+
+        public Repository(ApplicationDbContext context)
+        {
+            _context = context;
+            _dbSet = _context.Set<T>();
+        }
+
         public T Add(T entity)
         {
-            throw new NotImplementedException();
+            //_context.Set<T>().Add(entity);
+            _dbSet.Add(entity);
+            Save();
+            return entity;
         }
 
-        public T AddRange(List<T> entities)
+        public List<T> AddRange(List<T> entities)
         {
-            throw new NotImplementedException();
+            _dbSet.AddRange(entities);
+            Save();
+            return entities;
         }
-
-        public T Delete(int id)
+        //soft delete
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+          T entity = _dbSet.Find(id);
+            entity.IsDeleted= true;
+            _dbSet.Update(entity);
+            Save();
         }
 
         public ICollection<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbSet.Where(x => !x.IsDeleted).ToList();
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbSet.Find(id);
         }
 
         public T GetFirstOrDefault(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dbSet.FirstOrDefault(predicate);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public T Update(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Update(entity);
+            Save();
+            return entity;
         }
     }
 }

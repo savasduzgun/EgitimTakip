@@ -11,11 +11,11 @@ namespace EgitimTakip.Repository.Shared.Abstract
     {
         ICollection<T> GetAll();
         T Add(T entity);
-        T AddRange(List<T> entities); //liste olarak ekleme
+        List<T> AddRange(List<T> entities); //liste olarak ekleme
         T Update(T entity);
 
-        //T Delete(T entity); Hard Delete
-        T Delete(int id); //Soft Delete
+        //void Delete(T entity); Hard Delete
+        void Delete(int id); //Soft Delete
         T GetById(int id); 
         T GetFirstOrDefault(Expression<Func<T,bool>>predicate);
         void Save();
